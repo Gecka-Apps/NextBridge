@@ -1,0 +1,18 @@
+<?php
+// =============================================================================
+// NextBridge Plugin Configuration
+// =============================================================================
+//
+// This plugin requires the RoundCube bridge to be enabled in Nextcloud.
+// When using Roundcube embedded in Nextcloud via the nextcloud-roundcube app,
+// enable "RoundCube bridge" in the Nextcloud admin settings.
+//
+// The plugin communicates with Nextcloud via the postMessage API to:
+// - Attach files from Nextcloud to emails
+// - Save email attachments to Nextcloud
+// - Insert public share links into email body
+// - Add calendar invitations (.ics) to Nextcloud Calendar
+//
+// No configuration is required here - the plugin automatically detects
+// if the Nextcloud bridge is available.
+// =============================================================================

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset name="NextBridge">
+  <description>PSR-12 coding standard for NextBridge RoundCube plugin</description>
+
+  <!-- Use PSR-12 as base with RoundCube-specific exclusions -->
+  <rule ref="PSR12">
+    <!-- Allow longer lines for readability -->
+    <exclude name="Generic.Files.LineLength"/>
+    <!-- RoundCube plugins don't use namespaces -->
+    <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+    <!-- RoundCube plugins use lowercase class names by convention -->
+    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    <!-- RoundCube plugins can have side effects (require_once) -->
+    <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+  </rule>
+
+  <!-- Line length: warn at 120, no hard limit -->
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="120"/>
+      <property name="absoluteLineLimit" value="0"/>
+    </properties>
+  </rule>
+
+  <!-- Require class documentation -->
+  <rule ref="Squiz.Commenting.ClassComment"/>
+
+  <!-- Require function documentation with @param and @return -->
+  <rule ref="Squiz.Commenting.FunctionComment"/>
+
+  <!-- Files to check -->
+  <file>nextbridge.php</file>
+  <file>lib/</file>
+
+  <!-- Exclude vendor directories -->
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

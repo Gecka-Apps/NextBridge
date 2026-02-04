@@ -1,0 +1,74 @@
+# NextBridge
+
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Roundcube](https://img.shields.io/badge/Roundcube-1.6+-37BEFF)](https://roundcube.net)
+
+Nextcloud integration for Roundcube.
+
+## About
+
+NextBridge is a Roundcube plugin that enables seamless Nextcloud integration when using Roundcube embedded inside Nextcloud.
+
+## Features
+
+- Attach files from Nextcloud storage to emails
+- Insert public share links into email body
+- Save email attachments directly to Nextcloud storage
+- Save all attachments from an email to Nextcloud with one click
+- Add calendar invitations (.ics) directly to Nextcloud Calendar
+
+## How It Works
+
+This plugin uses the Nextcloud file bridge provided by a compatible Nextcloud app. When Roundcube is embedded in Nextcloud via an iframe, the plugin communicates with Nextcloud using the postMessage API to:
+
+1. Open the native Nextcloud file picker when attaching files
+2. Open the native Nextcloud folder picker when saving attachments
+3. Transfer files via WebDAV using the existing Nextcloud session
+4. Add calendar events via CalDAV to Nextcloud Calendar
+
+All file and calendar operations are executed by Nextcloud itself - Roundcube only sends requests via postMessage to the parent window.
+
+## Requirements
+
+- Roundcube 1.6+
+- One of the following Nextcloud apps with bridge support enabled:
+  - [mail_roundcube_bridge](https://github.com/Gecka-Apps/nextcloud-roundcube-bridge) - Companion app for nextcloud-roundcube
+  - [mail_roundcube](https://github.com/rotdrop/nextcloud-roundcube) - *(pull request pending)*
+
+## License
+
+This plugin is released under the [GNU Affero General Public License Version 3](https://www.gnu.org/licenses/agpl-3.0.html).
+
+## Installation
+
+1. Install a compatible Nextcloud app:
+   - **Option A:** Install [nextcloud-roundcube](https://github.com/rotdrop/nextcloud-roundcube) + [nextcloud-roundcube-bridge](https://github.com/Gecka-Apps/nextcloud-roundcube-bridge)
+   - **Option B:** Install [mail_roundcube](https://github.com/nickvergessen/mail_roundcube) with bridge support *(pull request pending)*
+
+2. Enable the bridge in the Nextcloud admin settings
+
+3. Place this plugin folder into plugins directory of Roundcube:
+   ```bash
+   cd /path/to/roundcube/plugins/
+   git clone https://github.com/Gecka-Apps/NextBridge.git nextbridge
+   ```
+
+4. Add `nextbridge` to `$config['plugins']` in your Roundcube config:
+   ```php
+   $config['plugins'] = array('nextbridge', /* other plugins */);
+   ```
+
+5. **That's it!** The plugin automatically detects when the Nextcloud file bridge is available.
+
+## Authors
+
+- **Laurent Dinclaux** <laurent@gecka.nc> - Gecka
+
+## Related Projects
+
+- [mail_roundcube](https://github.com/rotdrop/nextcloud-roundcube) - Nextcloud app that embeds RoundCube
+- [mail_roundcube_bridge](https://github.com/Gecka-Apps/nextcloud-roundcube-bridge) - Nextcloud app providing the bridge API
+
+---
+
+Built with 🥥 and ☕ by [Gecka](https://gecka.nc) — Kanaky-New Caledonia 🇳🇨

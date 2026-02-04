@@ -1,0 +1,42 @@
+/**
+ * NextBridge - Nextcloud integration for Roundcube
+ * Simplified styles for bridge-based file operations
+ *
+ * @author Laurent Dinclaux <laurent@gecka.nc>
+ * @copyright 2026 Gecka
+ * @license AGPL-3.0-or-later
+ */
+
+/* "Save all to cloud" link in message header */
+a.nextbridge-saveall {
+  display: inline-block;
+  margin-top: .5em;
+  padding: 3px 5px 4px 5px;
+}
+
+/* Cloud icon for menu items and buttons */
+.menu a.nextbridge-saveas::before,
+#message-header .header-links a.nextbridge-saveall::before,
+button.nextbridge-attach.nextbridge-cloud::before {
+  content: "\f0c2";
+}
+
+/* Share link icon for share button */
+button.nextbridge-attach.nextbridge-sharelink::before {
+  content: "\f1e0";
+}
+
+/* Calendar icon for "Add to calendar" menu item */
+.menu a.nextbridge-calendar::before {
+  content: "\f073";
+}
+
+/* Calendar picker dialog styling */
+#nextbridge-calendar-dialog select {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#nextbridge-calendar-dialog select option {
+  padding: 5px;
+}

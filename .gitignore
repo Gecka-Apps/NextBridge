@@ -1,0 +1,40 @@
+# Dependencies
+/vendor/
+composer.lock
+
+# PHP CodeSniffer cache
+.phpcs-cache
+
+# Config
+/config.inc.php
+
+# IDE - VSCode
+.vscode/
+
+# IDE - JetBrains (PhpStorm, WebStorm, etc.)
+.idea/
+*.iml
+
+# IDE - Eclipse
+.settings/
+.buildpath
+.project
+
+# IDE - Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# OS - macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# OS - Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# OS - Linux
+*~
+.directory
