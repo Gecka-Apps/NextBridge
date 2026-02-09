@@ -33,3 +33,4 @@ $labels['notcalendarfile'] = 'Ce n\'est pas un fichier calendrier';
 $labels['nocalendars'] = 'Aucun calendrier disponible';
 $labels['calendarerror'] = 'Échec du chargement du calendrier : $error';
 $labels['eventadderror'] = 'Échec de l\'ajout de l\'événement : $error';
+$labels['sharelinkerror'] = 'Échec de l\'insertion du lien de partage : $error';

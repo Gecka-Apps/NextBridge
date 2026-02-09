@@ -426,7 +426,7 @@ function nextbridge_insert_share_link() {
             rcmail.set_busy(false, null, lock);
             var errorMessage = error && error.message ? error.message : String(error);
             if (errorMessage !== 'Cancelled') {
-                rcmail.display_message(errorMessage, 'error');
+                rcmail.display_message(rcmail.gettext('nextbridge.sharelinkerror').replace('$error', errorMessage), 'error');
             }
             // Silent if cancelled
         });

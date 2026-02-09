@@ -125,7 +125,8 @@ class nextbridge_engine
                 'notcalendarfile',
                 'nocalendars',
                 'calendarerror',
-                'eventadderror'
+                'eventadderror',
+                'sharelinkerror'
             );
         }
 

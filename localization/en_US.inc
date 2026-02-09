@@ -33,3 +33,4 @@ $labels['notcalendarfile'] = 'Not a calendar file';
 $labels['nocalendars'] = 'No calendars available';
 $labels['calendarerror'] = 'Failed to load calendar: $error';
 $labels['eventadderror'] = 'Failed to add event: $error';
+$labels['sharelinkerror'] = 'Failed to insert share link: $error';
