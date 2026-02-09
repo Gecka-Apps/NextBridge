@@ -32,9 +32,7 @@ window.rcmail && rcmail.addEventListener('init', function () {
                 // Simple format: attData is the MIME type directly
                 mimeType = attData;
                 // Try to get filename from DOM
-                var escapedId = e.props.id.toString().replace(/([.:#\[\]])/g, '\\$1');
-                var attachEl = $('#attach' + escapedId).find('a').first();
-                filename = attachEl.attr('title') || attachEl.text() || '';
+                filename = nextbridge_get_filename_from_dom(e.props.id);
             } else if (attData && typeof attData === 'object') {
                 // Object format
                 mimeType = attData.mimetype;
@@ -245,15 +243,7 @@ function nextbridge_save_attachment(btn) {
         attachmentId = nextbridge_current_attachment_id;
         // Try to get filename from attachment element
         if (attachmentId) {
-            // Escape special characters in ID (dots, colons, etc.) for jQuery selector
-            var escapedId = attachmentId.replace(/([.:#\[\]])/g, '\\$1');
-            var attach = $('#attach' + escapedId).find('a').first();
-            filename = attach.attr('title');
-            if (!filename) {
-                attach = attach.clone();
-                $('.attachment-size', attach).remove();
-                filename = $.trim(attach.text());
-            }
+            filename = nextbridge_get_filename_from_dom(attachmentId);
         }
     }
 
@@ -281,16 +271,7 @@ function nextbridge_save_all_attachments() {
 
         // If no filename found, try to get it from the DOM element
         if (!filename) {
-            // Escape special characters in ID (dots, colons, etc.) for jQuery selector
-            var escapedId = attId.replace(/([.:#\[\]])/g, '\\$1');
-            var attachEl = $('#attach' + escapedId);
-            var attach = attachEl.find('a').first();
-            filename = attach.attr('title');
-            if (!filename) {
-                attach = attach.clone();
-                $('.attachment-size', attach).remove();
-                filename = $.trim(attach.text());
-            }
+            filename = nextbridge_get_filename_from_dom(attId);
         }
 
         // Skip if we still can't get a valid filename
@@ -405,34 +386,7 @@ function nextbridge_save_attachment_to_cloud(attachmentId, filename) {
  * Download attachment from Roundcube and save to Nextcloud via bridge.
  */
 function nextbridge_download_and_save(attachmentId, filename, callback) {
-    var downloadUrl = rcmail.url('get', {
-        _uid: rcmail.env.uid,
-        _mbox: rcmail.env.mailbox,
-        _part: attachmentId,
-        _download: 1,
-        _token: rcmail.env.request_token
-    });
-
-    fetch(downloadUrl, {
-        credentials: 'include',
-        headers: {
-            'X-Roundcube-Request': rcmail.env.request_token
-        }
-    })
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error('Failed to fetch attachment');
-            }
-            return response.blob();
-        })
-        .then(function(blob) {
-            return nextbridge_get_bridge().blobToBase64(blob).then(function(base64) {
-                return {
-                    base64: base64,
-                    mimeType: blob.type || 'application/octet-stream'
-                };
-            });
-        })
+    nextbridge_download_attachment(attachmentId)
         .then(function(data) {
             return nextbridge_get_bridge().saveFile(filename, data.base64, data.mimeType);
         })
@@ -507,16 +461,7 @@ function nextbridge_insert_at_cursor(html) {
 function nextbridge_directory_selector_dialog(id) {
     if (id) {
         // Single attachment save
-        var filename = null;
-        // Escape special characters in ID (dots, colons, etc.) for jQuery selector
-        var escapedId = id.replace(/([.:#\[\]])/g, '\\$1');
-        var attach = $('#attach' + escapedId).find('a').first();
-        filename = attach.attr('title');
-        if (!filename) {
-            attach = attach.clone();
-            $('.attachment-size', attach).remove();
-            filename = $.trim(attach.text());
-        }
+        var filename = nextbridge_get_filename_from_dom(id);
         if (filename) {
             nextbridge_save_attachment_to_cloud(id, filename);
         }
@@ -719,6 +664,24 @@ function nextbridge_save_to_calendar(calendarUrl, icsContent) {
                 rcmail.display_message('Failed to add event: ' + errorMessage, 'error');
             }
         });
+}
+
+/**
+ * Get the filename of an attachment from its DOM element.
+ *
+ * @param {string} attId - The attachment ID
+ * @returns {string} The filename, or empty string if not found
+ */
+function nextbridge_get_filename_from_dom(attId) {
+    var escapedId = attId.toString().replace(/([.:#\[\]])/g, '\\$1');
+    var attach = $('#attach' + escapedId).find('a').first();
+    var filename = attach.attr('title');
+    if (!filename) {
+        attach = attach.clone();
+        $('.attachment-size', attach).remove();
+        filename = $.trim(attach.text());
+    }
+    return filename || '';
 }
 
 /**
