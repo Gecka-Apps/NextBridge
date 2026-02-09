@@ -13,6 +13,7 @@
     ],
     "homepage": "https://github.com/Gecka-Apps/NextBridge",
     "require": {
+        "php": ">=8.2",
         "roundcube/plugin-installer": ">=0.3.0"
     },
     "require-dev": {

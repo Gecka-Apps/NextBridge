@@ -1,6 +1,9 @@
 # NextBridge
 
+[![Version](https://img.shields.io/github/v/release/Gecka-Apps/NextBridge?label=version)](https://github.com/Gecka-Apps/NextBridge/releases)
+[![PHP CodeSniffer](https://github.com/Gecka-Apps/NextBridge/actions/workflows/phpcs.yml/badge.svg)](https://github.com/Gecka-Apps/NextBridge/actions/workflows/phpcs.yml)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4)](https://www.php.net)
 [![Roundcube](https://img.shields.io/badge/Roundcube-1.6+-37BEFF)](https://roundcube.net)
 
 Nextcloud integration for Roundcube.
