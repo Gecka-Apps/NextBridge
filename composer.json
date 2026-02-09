@@ -1,6 +1,7 @@
 {
     "name": "gecka/nextbridge",
     "description": "NextBridge - Roundcube plugin for Nextcloud integration (files, calendar)",
+    "keywords": ["mail", "nextcloud", "webdav", "caldav", "attachments", "file-picker", "calendar"],
     "type": "roundcube-plugin",
     "license": "AGPL-3.0-or-later",
     "version": "1.1.0",
