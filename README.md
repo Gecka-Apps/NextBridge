@@ -41,24 +41,47 @@ This plugin is released under the [GNU Affero General Public License Version 3](
 
 ## Installation
 
+### Prerequisites
+
 1. Install a compatible Nextcloud app:
    - **Option A:** Install [nextcloud-roundcube](https://github.com/rotdrop/nextcloud-roundcube) + [nextcloud-roundcube-bridge](https://github.com/Gecka-Apps/nextcloud-roundcube-bridge)
-   - **Option B:** Install [mail_roundcube](https://github.com/nickvergessen/mail_roundcube) with bridge support *(pull request pending)*
+   - **Option B:** Install [nextcloud-roundcube](https://github.com/rotdrop/nextcloud-roundcube) with bridge support *([pull request #57](https://github.com/rotdrop/nextcloud-roundcube/pull/57))*
 
 2. Enable the bridge in the Nextcloud admin settings
 
-3. Place this plugin folder into plugins directory of Roundcube:
+### Install with Composer (recommended)
+
+Navigate to your Roundcube installation directory and run:
+
+```bash
+composer require gecka/nextbridge
+```
+
+The [roundcube/plugin-installer](https://github.com/roundcube/plugin-installer) will automatically place the plugin in the correct `plugins/` directory and offer to enable it.
+
+> **Don't have Composer?** See [getcomposer.org](https://getcomposer.org/download/) for installation instructions.
+
+> **Running as root on a VPS?** Roundcube files are typically owned by `www-data`. Run Composer as the web server user to avoid permission issues:
+> ```bash
+> sudo -u www-data composer require gecka/nextbridge
+> ```
+
+### Install manually
+
+1. Place this plugin folder into the plugins directory of Roundcube:
    ```bash
    cd /path/to/roundcube/plugins/
    git clone https://github.com/Gecka-Apps/NextBridge.git nextbridge
    ```
 
-4. Add `nextbridge` to `$config['plugins']` in your Roundcube config:
+2. Add `nextbridge` to `$config['plugins']` in your Roundcube config:
    ```php
    $config['plugins'] = array('nextbridge', /* other plugins */);
    ```
 
-5. **That's it!** The plugin automatically detects when the Nextcloud file bridge is available.
+### Done
+
+The plugin automatically detects when the Nextcloud file bridge is available. No additional configuration is required.
 
 ## Authors
 

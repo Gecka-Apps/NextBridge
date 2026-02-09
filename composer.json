@@ -1,5 +1,5 @@
 {
-    "name": "gecka/roundcube-nextbridge",
+    "name": "gecka/nextbridge",
     "description": "NextBridge - Roundcube plugin for Nextcloud integration (files, calendar)",
     "type": "roundcube-plugin",
     "license": "AGPL-3.0-or-later",
@@ -12,9 +12,17 @@
         }
     ],
     "homepage": "https://github.com/Gecka-Apps/NextBridge",
-    "require": {},
+    "require": {
+        "roundcube/plugin-installer": ">=0.3.0"
+    },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0"
+    },
+    "extra": {
+        "roundcube": {
+            "min-version": "1.6.0",
+            "persistent-files": ["config.inc.php"]
+        }
     },
     "scripts": {
         "phpcs": "phpcs",
