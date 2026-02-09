@@ -416,7 +416,8 @@ function nextbridge_insert_share_link() {
             rcmail.set_busy(false, null, lock);
             if (result && result.url) {
                 // Insert the link into the email body
-                var linkHtml = '<a href="' + result.url + '">' + result.url + '</a>';
+                var safeUrl = nextbridge_escape_html(result.url);
+                var linkHtml = '<a href="' + safeUrl + '">' + safeUrl + '</a>';
                 nextbridge_insert_at_cursor(linkHtml);
                 rcmail.display_message(rcmail.gettext('nextbridge.linkinserted'), 'confirmation');
             }
@@ -606,7 +607,8 @@ function nextbridge_show_calendar_picker(calendars, icsContent) {
         '<select id="nextbridge-calendar-select" class="form-control">';
 
     calendars.forEach(function(cal, index) {
-        var colorStyle = cal.color ? ' style="border-left: 4px solid ' + cal.color + '; padding-left: 8px;"' : '';
+        var safeColor = cal.color && /^#[0-9a-fA-F]{3,8}$/.test(cal.color) ? cal.color : '';
+        var colorStyle = safeColor ? ' style="border-left: 4px solid ' + safeColor + '; padding-left: 8px;"' : '';
         dialogHtml += '<option value="' + index + '"' + colorStyle + '>' + nextbridge_escape_html(cal.displayname) + '</option>';
     });
 
