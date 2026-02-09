@@ -100,7 +100,33 @@ class nextbridge_engine
             }
 
             // Add labels for JS
-            $plugin->add_label('save', 'cancel', 'saveto', 'saveall', 'fromcloud', 'attaching', 'sharelink', 'linkinserted', 'addtocalendar', 'eventadded', 'eventupdated', 'selectcalendar');
+            $plugin->add_label(
+                'save',
+                'cancel',
+                'saveto',
+                'saveall',
+                'fromcloud',
+                'attaching',
+                'sharelink',
+                'linkinserted',
+                'addtocalendar',
+                'eventadded',
+                'eventupdated',
+                'selectcalendar',
+                'bridgeunavailable',
+                'attachmenterror',
+                'uploadfailed',
+                'noattachments',
+                'downloaderror',
+                'attachmentssaved',
+                'saveallerror',
+                'attachmentsaved',
+                'saveerror',
+                'notcalendarfile',
+                'nocalendars',
+                'calendarerror',
+                'eventadderror'
+            );
         }
 
         // Include CSS

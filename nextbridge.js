@@ -133,7 +133,7 @@ function nextbridge_has_bridge() {
  */
 function nextbridge_selector_dialog() {
     if (!nextbridge_has_bridge()) {
-        rcmail.display_message('Nextcloud file bridge not available', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.bridgeunavailable'), 'error');
         return;
     }
 
@@ -207,7 +207,7 @@ function nextbridge_selector_dialog() {
                         if (processed === files.length) {
                             rcmail.remove_from_attachment_list(id);
                         }
-                        rcmail.display_message('Upload failed for ' + file.name, 'error');
+                        rcmail.display_message(rcmail.gettext('nextbridge.uploadfailed').replace('$name', file.name), 'error');
                     }
                 });
             });
@@ -226,7 +226,7 @@ function nextbridge_selector_dialog() {
  */
 function nextbridge_save_attachment(btn) {
     if (!nextbridge_has_bridge()) {
-        rcmail.display_message('Nextcloud file bridge not available', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.bridgeunavailable'), 'error');
         return;
     }
 
@@ -248,7 +248,7 @@ function nextbridge_save_attachment(btn) {
     }
 
     if (!attachmentId || !filename) {
-        rcmail.display_message('Cannot determine attachment', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.attachmenterror'), 'error');
         return;
     }
 
@@ -260,7 +260,7 @@ function nextbridge_save_attachment(btn) {
  */
 function nextbridge_save_all_attachments() {
     if (!nextbridge_has_bridge()) {
-        rcmail.display_message('Nextcloud file bridge not available', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.bridgeunavailable'), 'error');
         return;
     }
 
@@ -286,7 +286,7 @@ function nextbridge_save_all_attachments() {
     });
 
     if (!attachments.length) {
-        rcmail.display_message('No attachments to save', 'warning');
+        rcmail.display_message(rcmail.gettext('nextbridge.noattachments'), 'warning');
         return;
     }
 
@@ -310,7 +310,7 @@ function nextbridge_save_all_attachments() {
     Promise.all(downloadPromises).then(function() {
         if (!filesToSave.length) {
             rcmail.set_busy(false, null, lock);
-            rcmail.display_message('Failed to download attachments', 'error');
+            rcmail.display_message(rcmail.gettext('nextbridge.downloaderror'), 'error');
             return;
         }
 
@@ -319,13 +319,13 @@ function nextbridge_save_all_attachments() {
     }).then(function(savedPath) {
         rcmail.set_busy(false, null, lock);
         if (savedPath) {
-            rcmail.display_message(filesToSave.length + ' attachment(s) saved to Nextcloud', 'confirmation');
+            rcmail.display_message(rcmail.gettext('nextbridge.attachmentssaved').replace('$count', filesToSave.length), 'confirmation');
         }
     }).catch(function(error) {
         rcmail.set_busy(false, null, lock);
         var errorMessage = error && error.message ? error.message : String(error);
         if (errorMessage !== 'Cancelled') {
-            rcmail.display_message('Failed to save attachments', 'error');
+            rcmail.display_message(rcmail.gettext('nextbridge.saveallerror'), 'error');
         }
         // Silent if cancelled
     });
@@ -374,9 +374,9 @@ function nextbridge_save_attachment_to_cloud(attachmentId, filename) {
     nextbridge_download_and_save(attachmentId, filename, function(success, error) {
         rcmail.set_busy(false, null, lock);
         if (success) {
-            rcmail.display_message('Attachment saved to Nextcloud', 'confirmation');
+            rcmail.display_message(rcmail.gettext('nextbridge.attachmentsaved'), 'confirmation');
         } else if (error !== 'Cancelled') {
-            rcmail.display_message('Failed to save attachment', 'error');
+            rcmail.display_message(rcmail.gettext('nextbridge.saveerror'), 'error');
         }
         // Silent if cancelled by user
     });
@@ -405,7 +405,7 @@ function nextbridge_download_and_save(attachmentId, filename, callback) {
  */
 function nextbridge_insert_share_link() {
     if (!nextbridge_has_bridge()) {
-        rcmail.display_message('Nextcloud file bridge not available', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.bridgeunavailable'), 'error');
         return;
     }
 
@@ -510,13 +510,13 @@ function nextbridge_is_calendar_file(mimeType, filename) {
  */
 function nextbridge_add_to_calendar(btn) {
     if (!nextbridge_has_bridge()) {
-        rcmail.display_message('Nextcloud file bridge not available', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.bridgeunavailable'), 'error');
         return;
     }
 
     var attachmentId = nextbridge_current_attachment_id;
     if (!attachmentId) {
-        rcmail.display_message('Cannot determine attachment', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.attachmenterror'), 'error');
         return;
     }
 
@@ -534,7 +534,7 @@ function nextbridge_add_to_calendar(btn) {
     }
 
     if (!nextbridge_is_calendar_file(mimeType, filename)) {
-        rcmail.display_message('Not a calendar file', 'error');
+        rcmail.display_message(rcmail.gettext('nextbridge.notcalendarfile'), 'error');
         return;
     }
 
@@ -549,7 +549,7 @@ function nextbridge_add_to_calendar(btn) {
                     rcmail.set_busy(false, null, lock);
 
                     if (!calendars || !calendars.length) {
-                        rcmail.display_message('No calendars available', 'error');
+                        rcmail.display_message(rcmail.gettext('nextbridge.nocalendars'), 'error');
                         return;
                     }
 
@@ -560,7 +560,7 @@ function nextbridge_add_to_calendar(btn) {
         .catch(function(error) {
             rcmail.set_busy(false, null, lock);
             var errorMessage = error && error.message ? error.message : String(error);
-            rcmail.display_message('Failed to load calendar: ' + errorMessage, 'error');
+            rcmail.display_message(rcmail.gettext('nextbridge.calendarerror').replace('$error', errorMessage), 'error');
         });
 }
 
@@ -661,7 +661,7 @@ function nextbridge_save_to_calendar(calendarUrl, icsContent) {
             rcmail.set_busy(false, null, lock);
             var errorMessage = error && error.message ? error.message : String(error);
             if (errorMessage !== 'Cancelled') {
-                rcmail.display_message('Failed to add event: ' + errorMessage, 'error');
+                rcmail.display_message(rcmail.gettext('nextbridge.eventadderror').replace('$error', errorMessage), 'error');
             }
         });
 }
